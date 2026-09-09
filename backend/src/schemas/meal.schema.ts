@@ -13,3 +13,5 @@ export const MealSchema = z.strictObject({
     error: ERROR_MESSAGES.VALIDATION.MEAL_SCHEMA.CONSUMED_REQUIRED,
     path: ['consumedSoup']
 })
+
+export type MealType = z.infer<typeof MealSchema>;
