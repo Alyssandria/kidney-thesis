@@ -1,4 +1,5 @@
-import { MealType } from "./types"
+import z from "zod"
+import { MealTypeSchema } from "@/schemas/mealFormSchema"
 
 export const CONDIMENTS = [
   { id: "patis", label: "Patis (Fish Sauce)" },
@@ -9,11 +10,11 @@ export const CONDIMENTS = [
   { id: "salt", label: "Salt" },
 ]
 
-export const MEAL_TYPES: { type: MealType, icon: string }[] = [
-  { type: "Breakfast", icon: "🌅" },
-  { type: "Lunch", icon: "☀️" },
-  { type: "Dinner", icon: "🌙" },
-  { type: "Snack", icon: "🫐" },
+export const MEAL_TYPES: { type: z.infer<typeof MealTypeSchema>, icon: string }[] = [
+  { type: "BREAKFAST", icon: "🌅" },
+  { type: "LUNCH", icon: "☀️" },
+  { type: "DINNER", icon: "🌙" },
+  { type: "SNACK", icon: "🫐" },
 ]
 
 export const ANALYSIS_STEPS = [
