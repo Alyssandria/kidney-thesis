@@ -5,7 +5,7 @@ const router = Router();
 
 /** RESULTS ROUTES */
 router.use(
-  "/results",
+  "/meals/analyze",
   resultRoutes,
 );
 
