@@ -3,7 +3,11 @@ import z from "zod";
 export const MealTypeSchema = z.enum(['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK']);
 
 export const MealSchema = z.strictObject({
-  description: z.string().min(3, "Meal Description is Required"),
+  description: z
+    .string()
+    .trim()
+    .min(3, "Meal Description is Required")
+    .max(1000, "Please keep the description under 1000 characters"),
   mealType: MealTypeSchema.optional(),
   isSoup: z.boolean(),
   consumedSoup: z.boolean().optional(),

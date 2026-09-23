@@ -1,9 +1,24 @@
-import dotenv from "dotenv";
+import "dotenv/config";
+import z from "zod";
 
-dotenv.config();
+// `KEY=` in .env yields ""; treat it as unset so defaults apply.
+const emptyToUndefined = (value: unknown) => (value === "" ? undefined : value);
 
-export const ENV = {
-    AI_API_KEY: process.env.AI_API_KEY || "",
-    AI_MODEL: process.env.AI_MODEL || "gemini-3.7-flash",
-    PORT: Number(process.env.PORT) || 3001,
+const EnvSchema = z.object({
+  PORT: z.preprocess(emptyToUndefined, z.coerce.number().int().positive().default(3001)),
+  CORS_ORIGIN: z.preprocess(emptyToUndefined, z.string().default("http://localhost:3000")),
+
+  AI_API_KEY: z.string().min(1, "AI_API_KEY is required"),
+  AI_MODEL: z.preprocess(emptyToUndefined, z.string().default("gemini-3.7-flash")),
+});
+
+const parsed = EnvSchema.safeParse(process.env);
+
+if (!parsed.success) {
+  console.error(
+    `Invalid environment variables in backend/.env:\n${z.prettifyError(parsed.error)}`,
+  );
+  process.exit(1);
 }
+
+export const ENV = parsed.data;
