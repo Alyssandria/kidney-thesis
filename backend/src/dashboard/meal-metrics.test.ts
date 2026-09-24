@@ -43,14 +43,29 @@ describe("dailyCounts", () => {
       row({ createdAt: new Date("2026-09-24T10:00:00Z") }),
     ];
     expect(dailyCounts(rows, MANILA)).toEqual([
-      { date: "2026-09-22", count: 1 },
-      { date: "2026-09-24", count: 2 },
+      { date: "2026-09-22", count: 1, highNutrientMeals: 0 },
+      { date: "2026-09-24", count: 2, highNutrientMeals: 0 },
     ]);
   });
 
   it("puts a meal saved just after local midnight on the new day", () => {
     const rows = [row({ createdAt: new Date("2026-09-23T16:05:00Z") })];
-    expect(dailyCounts(rows, MANILA)).toEqual([{ date: "2026-09-24", count: 1 }]);
+    expect(dailyCounts(rows, MANILA)).toEqual([
+      { date: "2026-09-24", count: 1, highNutrientMeals: 0 },
+    ]);
+  });
+
+  it("counts meals with any mineral at HIGH or CRITICAL, once per meal", () => {
+    const day = new Date("2026-09-24T04:00:00Z");
+    const rows = [
+      row({ createdAt: day, sodiumLevel: "HIGH", potassiumLevel: "CRITICAL" }),
+      row({ createdAt: day, phosphorusLevel: "CRITICAL" }),
+      row({ createdAt: day, sodiumLevel: "MODERATE" }),
+      row({ createdAt: day, proteinLevel: "TOO_HIGH" }),
+    ];
+    expect(dailyCounts(rows, MANILA)).toEqual([
+      { date: "2026-09-24", count: 4, highNutrientMeals: 2 },
+    ]);
   });
 });
 

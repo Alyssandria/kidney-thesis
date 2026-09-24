@@ -21,6 +21,8 @@ export type DailyCount = {
   /** Calendar date in the user's timezone, formatted YYYY-MM-DD. */
   date: string;
   count: number;
+  /** Meals with sodium, potassium or phosphorus at HIGH or CRITICAL. */
+  highNutrientMeals: number;
 };
 
 export type MealSummary = {
@@ -66,15 +68,22 @@ export function toLocalDate(date: Date, timeZone: string): string {
   return `${part("year")}-${part("month")}-${part("day")}`;
 }
 
+export function hasHighNutrient(row: MealMetricRow): boolean {
+  return [row.sodiumLevel, row.potassiumLevel, row.phosphorusLevel].some(
+    (level) => level === "HIGH" || level === "CRITICAL",
+  );
+}
+
 export function dailyCounts(rows: readonly MealMetricRow[], timeZone: string): DailyCount[] {
-  const byDate = new Map<string, number>();
+  const byDate = new Map<string, DailyCount>();
   for (const row of rows) {
     const date = toLocalDate(row.createdAt, timeZone);
-    byDate.set(date, (byDate.get(date) ?? 0) + 1);
+    const day = byDate.get(date) ?? { date, count: 0, highNutrientMeals: 0 };
+    day.count += 1;
+    if (hasHighNutrient(row)) day.highNutrientMeals += 1;
+    byDate.set(date, day);
   }
-  return [...byDate.entries()]
-    .map(([date, count]) => ({ date, count }))
-    .sort((a, b) => a.date.localeCompare(b.date));
+  return [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
 
 export function nutrientLevelCounts(rows: readonly MealMetricRow[]): MealSummary["nutrientLevels"] {

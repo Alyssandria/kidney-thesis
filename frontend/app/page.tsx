@@ -3,13 +3,16 @@ import Link from "next/link";
 import { DM_Sans } from "next/font/google";
 import { Plus } from "lucide-react";
 import { LastSevenDays, LastSevenDaysSkeleton } from "@/components/dashboard/LastSevenDays";
+import { MealCalendar, MealCalendarSkeleton } from "@/components/dashboard/MealCalendar";
 import { RecentMeals, RecentMealsSkeleton } from "@/components/dashboard/RecentMeals";
 import { TodayCard, TodayCardSkeleton } from "@/components/dashboard/TodayCard";
 import { WhatToNotice } from "@/components/dashboard/WhatToNotice";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
-export default function DashboardPage() {
+export default async function DashboardPage({ searchParams }: PageProps<"/">) {
+  const { month } = await searchParams;
+
   return (
     <div className={`flex-1 bg-kc-canvas text-kc-ink ${dmSans.className}`}>
       <main className="max-w-5xl mx-auto px-5 py-7 flex flex-col gap-6">
@@ -37,7 +40,7 @@ export default function DashboardPage() {
           <section aria-labelledby="last-7-days-heading" className="flex flex-col gap-3">
             <h2
               id="last-7-days-heading"
-              className="text-[13px] font-bold uppercase tracking-widest text-kc-subtle"
+              className="text-[13px] font-bold uppercase tracking-[0.1em] text-kc-subtle"
             >
               Last 7 days
             </h2>
@@ -60,6 +63,12 @@ export default function DashboardPage() {
             </Suspense>
           </section>
 
+          <Suspense fallback={<MealCalendarSkeleton />}>
+            <MealCalendar monthParam={month} />
+          </Suspense>
+        </div>
+
+        <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1.35fr_1fr]">
           <WhatToNotice />
         </div>
       </main>
