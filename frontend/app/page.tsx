@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { LastSevenDays, LastSevenDaysSkeleton } from "@/components/dashboard/LastSevenDays";
 import { RecentMeals, RecentMealsSkeleton } from "@/components/dashboard/RecentMeals";
 import { TodayCard, TodayCardSkeleton } from "@/components/dashboard/TodayCard";
+import { WhatToNotice } from "@/components/dashboard/WhatToNotice";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -46,17 +47,21 @@ export default function DashboardPage() {
           </section>
         </div>
 
-        <section
-          aria-labelledby="recent-meals-heading"
-          className="flex flex-col gap-1.5 rounded-[26px] bg-white px-7 py-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
-        >
-          <h2 id="recent-meals-heading" className="mb-2 text-[19px] font-bold">
-            Recent meals
-          </h2>
-          <Suspense fallback={<RecentMealsSkeleton />}>
-            <RecentMeals />
-          </Suspense>
-        </section>
+        <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1.35fr_1fr]">
+          <section
+            aria-labelledby="recent-meals-heading"
+            className="flex flex-col gap-1.5 rounded-[26px] bg-white px-7 py-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+          >
+            <h2 id="recent-meals-heading" className="mb-2 text-[19px] font-bold">
+              Recent meals
+            </h2>
+            <Suspense fallback={<RecentMealsSkeleton />}>
+              <RecentMeals />
+            </Suspense>
+          </section>
+
+          <WhatToNotice />
+        </div>
       </main>
     </div>
   );

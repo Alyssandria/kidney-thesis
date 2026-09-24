@@ -50,7 +50,8 @@ export async function LastSevenDays() {
 
   let summary: DashboardSummary;
   try {
-    summary = await getDashboardSummary(lastDaysRange(DAYS, USER_TIMEZONE));
+    const { from, to } = lastDaysRange(DAYS, USER_TIMEZONE);
+    summary = await getDashboardSummary(from, to);
   } catch {
     return (
       <div className="flex flex-col items-start gap-3 rounded-[22px] bg-white p-5">
