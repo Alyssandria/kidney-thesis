@@ -14,13 +14,16 @@
     "@google/genai": "^2.19.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.44.5",
     "express": "^5.1.0",
+    "postgres": "^3.4.7",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.3.0",
+    "drizzle-kit": "^0.31.4",
     "tsx": "^4.23.12",
     "typescript": "^7.0.2"
   }

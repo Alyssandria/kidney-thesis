@@ -28,6 +28,10 @@ const APP_ERRORS = {
     status: 502,
     message: "The meal analysis came back incomplete. Please try again.",
   },
+  DATABASE_UNAVAILABLE: {
+    status: 503,
+    message: "Your meal log can't be reached right now. Please try again shortly.",
+  },
   NOT_FOUND: {
     status: 404,
     message: "Not found.",

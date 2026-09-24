@@ -10,6 +10,13 @@ const EnvSchema = z.object({
 
   AI_API_KEY: z.string().min(1, "AI_API_KEY is required"),
   AI_MODEL: z.preprocess(emptyToUndefined, z.string().default("gemini-3.7-flash")),
+
+  DATABASE_URL: z
+    .string()
+    .min(1, "DATABASE_URL is required")
+    .refine((url) => /^postgres(ql)?:\/\//.test(url), {
+      error: "DATABASE_URL must start with postgres:// or postgresql://",
+    }),
 });
 
 const parsed = EnvSchema.safeParse(process.env);
