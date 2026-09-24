@@ -130,3 +130,22 @@
     @apply font-sans;
     }
 }
+/* KidneyCare dashboard palette (from the dashboard design). */
+@theme {
+    --color-kc-canvas: #FAF7F2;
+    --color-kc-ink: #231F36;
+    --color-kc-ink-soft: #3F3B52;
+    --color-kc-muted: #57536B;
+    --color-kc-subtle: #6B6781;
+    --color-kc-line: #ECE8F0;
+    --color-kc-primary: #5B52C9;
+    --color-kc-primary-soft: #CFCBFF;
+    --color-kc-green-bg: #DFF2E6;
+    --color-kc-green-ink: #2E6B4A;
+    --color-kc-blue-bg: #DDEBFB;
+    --color-kc-blue-ink: #2F5F99;
+    --color-kc-lilac-bg: #ECE6FF;
+    --color-kc-lilac-ink: #6146C0;
+    --color-kc-amber-bg: #FFEFD2;
+    --color-kc-amber-ink: #8A4B08;
+}
