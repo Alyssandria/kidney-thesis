@@ -1,6 +1,8 @@
 import { ENV } from "../lib/config.js";
+import { AppError } from "../lib/errors.js";
 import { MEAL_ANALYSIS_PROMPT_VERSION } from "../prompts/mealAnalysis.prompt.js";
-import { insertMealLog } from "../repositories/meal-log.repository.js";
+import { findMealLogById, insertMealLog } from "../repositories/meal-log.repository.js";
+import type { MealLogDetail } from "../schemas/meal-log.schema.js";
 import type { SaveMealRequest, SaveMealResponse } from "../schemas/save-meal.schema.js";
 
 export async function saveMealLog(
@@ -27,4 +29,28 @@ export async function saveMealLog(
   });
 
   return { id: row.id, createdAt: row.createdAt.toISOString() };
+}
+
+export async function getMealLog(userId: string, id: string): Promise<MealLogDetail> {
+  const row = await findMealLogById(userId, id);
+  if (!row) {
+    throw new AppError("MEAL_NOT_FOUND");
+  }
+
+  return {
+    id: row.id,
+    createdAt: row.createdAt.toISOString(),
+    meal: {
+      description: row.description,
+      mealType: row.mealType,
+      isSoup: row.isSoup,
+      consumedSoup: row.consumedSoup,
+      condiments: row.condiments,
+    },
+    patientDetails: {
+      ckdStage: row.ckdStage,
+      isDialysis: row.isDialysis,
+    },
+    analysis: row.analysis,
+  };
 }
