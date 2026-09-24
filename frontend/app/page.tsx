@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DM_Sans } from "next/font/google";
 import { Plus } from "lucide-react";
 import { LastSevenDays, LastSevenDaysSkeleton } from "@/components/dashboard/LastSevenDays";
+import { RecentMeals, RecentMealsSkeleton } from "@/components/dashboard/RecentMeals";
 import { TodayCard, TodayCardSkeleton } from "@/components/dashboard/TodayCard";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
@@ -35,7 +36,7 @@ export default function DashboardPage() {
           <section aria-labelledby="last-7-days-heading" className="flex flex-col gap-3">
             <h2
               id="last-7-days-heading"
-              className="text-[13px] font-bold uppercase tracking-[0.1em] text-kc-subtle"
+              className="text-[13px] font-bold uppercase tracking-widest text-kc-subtle"
             >
               Last 7 days
             </h2>
@@ -44,6 +45,18 @@ export default function DashboardPage() {
             </Suspense>
           </section>
         </div>
+
+        <section
+          aria-labelledby="recent-meals-heading"
+          className="flex flex-col gap-1.5 rounded-[26px] bg-white px-7 py-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+        >
+          <h2 id="recent-meals-heading" className="mb-2 text-[19px] font-bold">
+            Recent meals
+          </h2>
+          <Suspense fallback={<RecentMealsSkeleton />}>
+            <RecentMeals />
+          </Suspense>
+        </section>
       </main>
     </div>
   );

@@ -55,3 +55,17 @@ export function formatTime(iso: string, timeZone: string): string {
   }
   return format.format(new Date(iso));
 }
+
+/** "Today", "Yesterday", or a short date such as "Mon, Sep 21", in `timeZone`. */
+export function formatDayLabel(iso: string, timeZone: string, now = new Date()): string {
+  const date = toLocalDate(new Date(iso), timeZone);
+  const today = toLocalDate(now, timeZone);
+  if (date === today) return "Today";
+  if (date === addDays(today, -1)) return "Yesterday";
+  return new Intl.DateTimeFormat("en-PH", {
+    timeZone,
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+  }).format(new Date(iso));
+}
