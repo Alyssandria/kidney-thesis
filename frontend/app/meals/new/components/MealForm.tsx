@@ -87,10 +87,7 @@ export function MealInputForm() {
   };
 
   return (
-    <div
-      className="min-h-screen bg-slate-50"
-      style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}
-    >
+    <div className="flex-1">
       <main className="max-w-5xl mx-auto px-5 py-7">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-5 items-start">
           {/* LEFT PANEL: Form */}

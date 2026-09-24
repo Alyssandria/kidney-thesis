@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="flex-1">
       <main className="max-w-3xl mx-auto px-5 py-7 flex flex-col gap-5" aria-busy="true">
         <p className="sr-only" role="status">Loading saved meal…</p>
         <Skeleton className="h-4 w-24" />

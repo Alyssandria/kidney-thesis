@@ -3,7 +3,7 @@ import { Sparkles } from "lucide-react";
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="flex-1">
       <main className="max-w-5xl mx-auto px-5 py-7 flex flex-col gap-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>

@@ -9,7 +9,7 @@ import { MealLogDetail } from "@/schemas/mealLogDetail";
 import { getMeal } from "@/services/mealService";
 
 export const metadata: Metadata = {
-  title: "Saved meal · KidneyCare",
+  title: "Saved meal",
 };
 
 const MEAL_TYPE_LABELS: Record<MealType, string> = {
@@ -60,7 +60,7 @@ export default async function SavedMealPage({ params, searchParams }: PageProps<
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="flex-1">
       <main className="max-w-3xl mx-auto px-5 py-7 flex flex-col gap-5">
         <Link
           href="/meals/new"

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function MealNotFound() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="flex-1">
       <main className="max-w-md mx-auto px-5 py-16 flex flex-col items-center gap-3 text-center">
         <h1 className="text-lg font-semibold text-slate-900">We couldn&apos;t find this meal</h1>
         <p className="text-sm text-slate-600 leading-relaxed">
