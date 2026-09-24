@@ -1,6 +1,7 @@
 import { and, desc, eq, gte, lt, sql, type SQL } from "drizzle-orm";
 import { db } from "../db/client.js";
 import { mealLogs, type MealLog, type NewMealLog } from "../db/schema/index.js";
+import type { MealMetricRow } from "../dashboard/meal-metrics.js";
 
 export async function insertMealLog(values: NewMealLog): Promise<MealLog> {
   const [row] = await db.insert(mealLogs).values(values).returning();
@@ -46,4 +47,30 @@ export async function findMealLogs(
     .where(and(...conditions))
     .orderBy(desc(mealLogs.createdAt), desc(mealLogs.id))
     .limit(limit);
+}
+
+export async function findMealMetricRows(
+  userId: string,
+  { from, to }: { from: Date; to: Date },
+): Promise<MealMetricRow[]> {
+  return db
+    .select({
+      createdAt: mealLogs.createdAt,
+      mealType: mealLogs.mealType,
+      isSoup: mealLogs.isSoup,
+      consumedSoup: mealLogs.consumedSoup,
+      condiments: mealLogs.condiments,
+      sodiumLevel: mealLogs.sodiumLevel,
+      potassiumLevel: mealLogs.potassiumLevel,
+      phosphorusLevel: mealLogs.phosphorusLevel,
+      proteinLevel: mealLogs.proteinLevel,
+    })
+    .from(mealLogs)
+    .where(
+      and(
+        eq(mealLogs.userId, userId),
+        gte(mealLogs.createdAt, from),
+        lt(mealLogs.createdAt, to),
+      ),
+    );
 }
