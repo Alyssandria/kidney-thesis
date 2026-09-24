@@ -17,6 +17,7 @@ import {
 import { CONDIMENTS, MEAL_TYPES } from "@/lib/constants";
 import { MealFormValues, MealSchema, MealType } from "@/schemas/mealFormSchema";
 import { useAnalyzeMeal } from "@/hooks/mutations/useAnalyzeMeal";
+import { useSaveMeal } from "@/hooks/mutations/useSaveMeal";
 import { IdlePanel } from "./results/Idle";
 import { AnalyzingPanel } from "./results/Analyzing";
 import { ErrorPanel } from "./results/Error";
@@ -28,11 +29,18 @@ export function MealInputForm() {
   const {
     mutateAsync: analyzeMeal,
     data: analysisData,
+    variables: analyzedValues,
     isPending,
     isSuccess,
     isError,
     reset: resetMutation,
   } = useAnalyzeMeal();
+
+  const {
+    mutate: saveMeal,
+    status: saveStatus,
+    reset: resetSave,
+  } = useSaveMeal();
 
   const { control, handleSubmit, watch } = useForm<MealFormValues>({
     resolver: zodResolver(MealSchema),
@@ -56,7 +64,20 @@ export function MealInputForm() {
   const showWarning = hasHighSodium || consumedSoup;
 
   const onSubmit = async (values: MealFormValues) => {
+    resetSave();
     await analyzeMeal(values);
+  };
+
+  // Save the values that were analyzed, not the current form state,
+  // which the user may have edited since.
+  const onSave = () => {
+    if (!analysisData || !analyzedValues) return;
+    saveMeal({ values: analyzedValues, analysis: analysisData });
+  };
+
+  const onReset = () => {
+    resetSave();
+    resetMutation();
   };
 
   return (
@@ -342,9 +363,14 @@ export function MealInputForm() {
               <div className="px-6 py-5">
                 {!isPending && !isSuccess && !isError && <IdlePanel />}
                 {isPending && <AnalyzingPanel />}
-                {isError && <ErrorPanel onReset={resetMutation} />}
+                {isError && <ErrorPanel onReset={onReset} />}
                 {isSuccess && analysisData && (
-                  <SuccessPanel result={analysisData} onReset={resetMutation} />
+                  <SuccessPanel
+                    result={analysisData}
+                    onReset={onReset}
+                    onSave={onSave}
+                    saveStatus={saveStatus}
+                  />
                 )}
               </div>
             </ScrollArea>
