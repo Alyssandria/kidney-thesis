@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DM_Sans } from "next/font/google";
 import { Plus } from "lucide-react";
 import { LastSevenDays, LastSevenDaysSkeleton } from "@/components/dashboard/LastSevenDays";
+import { TodayCard, TodayCardSkeleton } from "@/components/dashboard/TodayCard";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
@@ -26,17 +27,23 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        <section aria-labelledby="last-7-days-heading" className="flex flex-col gap-3">
-          <h2
-            id="last-7-days-heading"
-            className="text-[13px] font-bold uppercase tracking-[0.1em] text-kc-subtle"
-          >
-            Last 7 days
-          </h2>
-          <Suspense fallback={<LastSevenDaysSkeleton />}>
-            <LastSevenDays />
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.35fr_1fr]">
+          <Suspense fallback={<TodayCardSkeleton />}>
+            <TodayCard />
           </Suspense>
-        </section>
+
+          <section aria-labelledby="last-7-days-heading" className="flex flex-col gap-3">
+            <h2
+              id="last-7-days-heading"
+              className="text-[13px] font-bold uppercase tracking-[0.1em] text-kc-subtle"
+            >
+              Last 7 days
+            </h2>
+            <Suspense fallback={<LastSevenDaysSkeleton />}>
+              <LastSevenDays />
+            </Suspense>
+          </section>
+        </div>
       </main>
     </div>
   );

@@ -3,6 +3,7 @@ import { api } from "@/lib/config";
 import { MealAnalysisResponse } from "@/schemas/mealAnalysisResponse";
 import { MealFormValues } from "@/schemas/mealFormSchema";
 import { MealLogDetail, MealLogDetailSchema } from "@/schemas/mealLogDetail";
+import { MealListResponse, MealListResponseSchema } from "@/schemas/mealList";
 import { SaveMealResponse, SaveMealResponseSchema } from "@/schemas/saveMealResponse";
 
 export type MealRating = "RENAL_SAFE" | "CAUTION_REQUIRED" | "HIGH_RISK";
@@ -61,4 +62,13 @@ export async function getMeal(id: string): Promise<MealLogDetail | null> {
     }
     throw error;
   }
+}
+
+export async function listMeals(params: {
+  from?: string;
+  to?: string;
+  limit?: number;
+}): Promise<MealListResponse> {
+  const { data } = await api.get<unknown>("/meals", { params });
+  return MealListResponseSchema.parse(data);
 }

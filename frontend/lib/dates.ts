@@ -43,3 +43,15 @@ export function lastDaysRange(days: number, timeZone: string, now = new Date()) 
     to: startOfDayIso(addDays(today, 1), timeZone),
   };
 }
+
+const timeFormats = new Map<string, Intl.DateTimeFormat>();
+
+/** Time of day of `iso` in `timeZone`, e.g. "7:10 AM". */
+export function formatTime(iso: string, timeZone: string): string {
+  let format = timeFormats.get(timeZone);
+  if (!format) {
+    format = new Intl.DateTimeFormat("en-PH", { timeZone, hour: "numeric", minute: "2-digit" });
+    timeFormats.set(timeZone, format);
+  }
+  return format.format(new Date(iso));
+}
