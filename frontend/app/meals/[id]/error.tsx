@@ -18,7 +18,7 @@ export default function MealError({ reset }: { error: Error & { digest?: string 
           >
             Try again
           </button>
-          <Link href="/" className="text-sm font-semibold text-slate-700 underline-offset-4 hover:underline">
+          <Link href="/meals/new" className="text-sm font-semibold text-slate-700 underline-offset-4 hover:underline">
             Log a meal
           </Link>
         </div>

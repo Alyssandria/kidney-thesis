@@ -63,7 +63,7 @@ export default async function SavedMealPage({ params, searchParams }: PageProps<
     <div className="min-h-screen bg-slate-50">
       <main className="max-w-3xl mx-auto px-5 py-7 flex flex-col gap-5">
         <Link
-          href="/"
+          href="/meals/new"
           className="inline-flex items-center gap-1.5 self-start rounded text-sm font-medium text-slate-600 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
         >
           <ArrowLeft size={14} aria-hidden="true" />
