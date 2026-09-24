@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles, Soup, CheckCircle2, AlertTriangle } from "lucide-react";
@@ -26,6 +27,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { getDefaultMealType } from "@/lib/utils";
 
 export function MealInputForm() {
+  const router = useRouter();
+
   const {
     mutateAsync: analyzeMeal,
     data: analysisData,
@@ -72,7 +75,10 @@ export function MealInputForm() {
   // which the user may have edited since.
   const onSave = () => {
     if (!analysisData || !analyzedValues) return;
-    saveMeal({ values: analyzedValues, analysis: analysisData });
+    saveMeal(
+      { values: analyzedValues, analysis: analysisData },
+      { onSuccess: ({ id }) => router.push(`/meals/${id}?saved=1`) },
+    );
   };
 
   const onReset = () => {

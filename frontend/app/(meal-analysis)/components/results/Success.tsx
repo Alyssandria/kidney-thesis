@@ -45,7 +45,7 @@ export function SuccessPanel({ result, onReset, onSave, saveStatus }: SuccessPan
         </div>
         <p role="status" className="min-h-4 text-xs">
           {saveStatus === "success" && (
-            <span className="text-emerald-700">This meal is now in your log.</span>
+            <span className="text-emerald-700">Saved. Opening your saved meal…</span>
           )}
           {saveStatus === "error" && (
             <span className="text-rose-700">We couldn&apos;t save this meal. Please try again.</span>

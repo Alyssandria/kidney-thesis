@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { AnalysisResult } from "@/components/meals/AnalysisResult";
 import { CONDIMENTS } from "@/lib/constants";
 import { MealType } from "@/schemas/mealFormSchema";
@@ -34,8 +34,10 @@ function condimentLabel(id: string) {
   return CONDIMENTS.find((condiment) => condiment.id === id)?.label ?? id;
 }
 
-export default async function SavedMealPage({ params }: PageProps<"/meals/[id]">) {
+export default async function SavedMealPage({ params, searchParams }: PageProps<"/meals/[id]">) {
   const { id } = await params;
+  const { saved: savedParam } = await searchParams;
+  const justSaved = savedParam === "1";
   const saved = await getMeal(id);
 
   if (!saved) {
@@ -67,6 +69,16 @@ export default async function SavedMealPage({ params }: PageProps<"/meals/[id]">
           <ArrowLeft size={14} aria-hidden="true" />
           Log a meal
         </Link>
+
+        {justSaved && (
+          <p
+            role="status"
+            className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800"
+          >
+            <CheckCircle2 size={16} aria-hidden="true" />
+            Saved to your log.
+          </p>
+        )}
 
         <section className="bg-white rounded-2xl border border-slate-200 shadow-sm px-6 py-5 flex flex-col gap-4">
           <div>
