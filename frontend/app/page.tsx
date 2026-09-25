@@ -4,6 +4,7 @@ import { DM_Sans } from "next/font/google";
 import { Plus } from "lucide-react";
 import { LastSevenDays, LastSevenDaysSkeleton } from "@/components/dashboard/LastSevenDays";
 import { MealCalendar, MealCalendarSkeleton } from "@/components/dashboard/MealCalendar";
+import { NutrientPatterns } from "@/components/dashboard/NutrientPatterns";
 import { RecentMeals, RecentMealsSkeleton } from "@/components/dashboard/RecentMeals";
 import { TodayCard, TodayCardSkeleton } from "@/components/dashboard/TodayCard";
 import { WhatToNotice } from "@/components/dashboard/WhatToNotice";
@@ -70,6 +71,9 @@ export default async function DashboardPage({ searchParams }: PageProps<"/">) {
 
         <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1.35fr_1fr]">
           <WhatToNotice />
+          <Suspense fallback={<div className="h-72 animate-pulse rounded-[26px] bg-white" aria-hidden="true" />}>
+            <NutrientPatterns />
+          </Suspense>
         </div>
       </main>
     </div>

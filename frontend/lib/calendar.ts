@@ -45,3 +45,10 @@ const longDateFormat = new Intl.DateTimeFormat("en-PH", {
 export function formatLongDate(date: string): string {
   return longDateFormat.format(new Date(`${date}T00:00:00Z`));
 }
+
+const monthNameFormat = new Intl.DateTimeFormat("en-PH", { timeZone: "UTC", month: "long" });
+
+/** e.g. "September" for "2026-09" */
+export function formatMonthName(month: string): string {
+  return monthNameFormat.format(new Date(`${month}-01T00:00:00Z`));
+}

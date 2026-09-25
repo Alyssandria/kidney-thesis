@@ -162,5 +162,7 @@
     --color-kc-logged-line: #D6D1FF;
     --color-kc-logged-mid: #D6D1FF;
     --color-kc-logged-strong: #B9B4F7;
+    --color-kc-level-high: #E8895A;
+    --color-kc-level-moderate: #FFC878;
     --color-kc-empty-line: #F1EEF4;
 }
