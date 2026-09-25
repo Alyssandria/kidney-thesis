@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import type { ReactNode } from "react";
-import { Check, Plus } from "lucide-react";
+import { Check } from "lucide-react";
 import { USER_TIMEZONE, formatTime, lastDaysRange } from "@/lib/dates";
 import { MealType } from "@/schemas/mealFormSchema";
 import { MealListItem, MealListResponse } from "@/schemas/mealList";
@@ -116,31 +116,22 @@ export async function TodayCard() {
         ))}
       </ul>
 
-      <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="line-clamp-2 text-sm text-kc-peach-text">
-          {latest ? (
-            <>
-              Latest:{" "}
-              <Link
-                href={`/meals/${latest.id}`}
-                className="font-semibold text-kc-ink underline-offset-4 hover:underline"
-              >
-                {latest.description}
-              </Link>{" "}
-              · saved {formatTime(latest.createdAt, USER_TIMEZONE)}
-            </>
-          ) : (
-            "Meals you save today will appear here."
-          )}
-        </p>
-        <Link
-          href="/meals/new"
-          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 self-start rounded-[14px] bg-kc-ink px-5 text-[15px] font-bold text-white hover:bg-kc-ink-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kc-primary focus-visible:ring-offset-2 sm:self-auto"
-        >
-          <Plus size={18} aria-hidden="true" />
-          Analyze a meal
-        </Link>
-      </div>
+      <p className="mt-auto line-clamp-2 text-sm text-kc-peach-text">
+        {latest ? (
+          <>
+            Latest:{" "}
+            <Link
+              href={`/meals/${latest.id}`}
+              className="font-semibold text-kc-ink underline-offset-4 hover:underline"
+            >
+              {latest.description}
+            </Link>{" "}
+            · saved {formatTime(latest.createdAt, USER_TIMEZONE)}
+          </>
+        ) : (
+          "Meals you save today will appear here."
+        )}
+      </p>
     </CardShell>
   );
 }

@@ -22,3 +22,10 @@ export const ANALYSIS_STEPS = [
   "Checking potassium & sodium lab limits…",
   "Generating renal-safe substitutes…",
 ]
+
+export const MEAL_TYPE_LABELS: Record<z.infer<typeof MealTypeSchema>, string> = {
+  BREAKFAST: "Breakfast",
+  LUNCH: "Lunch",
+  DINNER: "Dinner",
+  SNACK: "Snack",
+}

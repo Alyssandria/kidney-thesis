@@ -5,6 +5,7 @@ import { buildCountedFacts, MIN_MEALS_FOR_FACTS } from "@/lib/dashboardFacts";
 import { USER_TIMEZONE, lastDaysRange } from "@/lib/dates";
 import { DashboardSummary } from "@/schemas/dashboardSummary";
 import { getDashboardSummary } from "@/services/dashboardService";
+import { DashboardCard } from "./DashboardCard";
 import { RetryButton } from "./RetryButton";
 
 const DAYS = 7;
@@ -60,13 +61,7 @@ async function CountedFactsPanel() {
 
 export function WhatToNotice() {
   return (
-    <section
-      aria-labelledby="notice-heading"
-      className="flex flex-col gap-4 rounded-[26px] bg-white px-7 py-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
-    >
-      <h2 id="notice-heading" className="text-[19px] font-bold">
-        What to notice
-      </h2>
+    <DashboardCard id="notice" title="What to notice">
       <Suspense fallback={<CountedFactsSkeleton />}>
         <CountedFactsPanel />
       </Suspense>
@@ -75,7 +70,7 @@ export function WhatToNotice() {
         These notes describe the meals you logged, not your health. Your doctor or renal dietitian
         can tell you which limits apply to you.
       </p>
-    </section>
+    </DashboardCard>
   );
 }
 

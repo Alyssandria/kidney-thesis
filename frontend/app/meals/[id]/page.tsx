@@ -3,20 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { AnalysisResult } from "@/components/meals/AnalysisResult";
-import { CONDIMENTS } from "@/lib/constants";
-import { MealType } from "@/schemas/mealFormSchema";
+import { CONDIMENTS, MEAL_TYPE_LABELS } from "@/lib/constants";
 import { MealLogDetail } from "@/schemas/mealLogDetail";
 import { getMeal } from "@/services/mealService";
 
 export const metadata: Metadata = {
   title: "Saved meal",
-};
-
-const MEAL_TYPE_LABELS: Record<MealType, string> = {
-  BREAKFAST: "Breakfast",
-  LUNCH: "Lunch",
-  DINNER: "Dinner",
-  SNACK: "Snack",
 };
 
 const savedAtFormat = new Intl.DateTimeFormat("en-PH", {

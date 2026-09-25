@@ -99,7 +99,7 @@ export function MealCalendarView({ month, today, selectedDay, days }: MealCalend
 
   const navigate = (params: { month: string; day?: string }) => {
     const search = new URLSearchParams(params);
-    router.push(`/?${search.toString()}`, { scroll: false });
+    router.push(`/history?${search.toString()}`, { scroll: false });
   };
 
   function describeDay(date: Date, isToday: boolean, isSelected: boolean) {

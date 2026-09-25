@@ -6,6 +6,7 @@ import { DashboardSummary } from "@/schemas/dashboardSummary";
 import { getDashboardSummary } from "@/services/dashboardService";
 import { DayMealsPanel, DayMealsPanelSkeleton } from "./DayMealsPanel";
 import { MealCalendarView } from "./MealCalendarView";
+import { DashboardCard } from "./DashboardCard";
 import { RetryButton } from "./RetryButton";
 
 type MealCalendarProps = {
@@ -15,15 +16,9 @@ type MealCalendarProps = {
 
 function CalendarShell({ children }: { children: ReactNode }) {
   return (
-    <section
-      aria-labelledby="calendar-heading"
-      className="flex flex-col gap-4 rounded-[26px] bg-white px-5 py-6 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:px-7"
-    >
-      <h2 id="calendar-heading" className="text-[19px] font-bold">
-        Meal calendar
-      </h2>
+    <DashboardCard id="calendar" title="Meal calendar">
       {children}
-    </section>
+    </DashboardCard>
   );
 }
 

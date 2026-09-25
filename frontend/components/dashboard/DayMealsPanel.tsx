@@ -3,17 +3,10 @@ import { connection } from "next/server";
 import { NutrientLevelChip, notableNutrients } from "@/components/meals/NutrientLevelChip";
 import { dayRange, formatLongDate } from "@/lib/calendar";
 import { USER_TIMEZONE, formatTime } from "@/lib/dates";
-import { MealType } from "@/schemas/mealFormSchema";
+import { MEAL_TYPE_LABELS } from "@/lib/constants";
 import { MealListResponse } from "@/schemas/mealList";
 import { listMeals } from "@/services/mealService";
 import { RetryButton } from "./RetryButton";
-
-const MEAL_TYPE_LABELS: Record<MealType, string> = {
-  BREAKFAST: "Breakfast",
-  LUNCH: "Lunch",
-  DINNER: "Dinner",
-  SNACK: "Snack",
-};
 
 // More than a day's worth of meals, so the list is never cut short.
 const DAY_LIMIT = 50;

@@ -1,32 +1,19 @@
 import { connection } from "next/server";
 import type { ReactNode } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatMonthName, monthRange } from "@/lib/calendar";
 import { USER_TIMEZONE, toLocalDate } from "@/lib/dates";
 import { MIN_MEALS_FOR_PATTERNS, nutrientRings } from "@/lib/nutrientPatterns";
 import { DashboardSummary } from "@/schemas/dashboardSummary";
 import { getDashboardSummary } from "@/services/dashboardService";
 import { NutrientLevelRing } from "./NutrientLevelRing";
+import { DashboardCard } from "./DashboardCard";
 import { RetryButton } from "./RetryButton";
-
-const cardClassName =
-  "gap-4 rounded-[26px] bg-white py-6 text-kc-ink shadow-[0_1px_2px_rgba(15,23,42,0.04)] ring-0";
 
 function PatternsCard({ description, children }: { description?: string; children: ReactNode }) {
   return (
-    <Card aria-labelledby="patterns-heading" role="region" className={cardClassName}>
-      <CardHeader className="px-7">
-        <CardTitle>
-          <h2 id="patterns-heading" className="text-[19px] font-bold">
-            Nutrient levels this month
-          </h2>
-        </CardTitle>
-        {description && (
-          <CardDescription className="text-sm text-kc-subtle">{description}</CardDescription>
-        )}
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4 px-7">{children}</CardContent>
-    </Card>
+    <DashboardCard id="patterns" title="Nutrient levels this month" description={description}>
+      {children}
+    </DashboardCard>
   );
 }
 

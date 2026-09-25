@@ -3,21 +3,13 @@ import { connection } from "next/server";
 import type { ReactNode } from "react";
 import { ChevronRight, Moon, Soup, Sun, Sunrise, Utensils } from "lucide-react";
 import { NutrientLevelChip, notableNutrients } from "@/components/meals/NutrientLevelChip";
-import { CONDIMENTS } from "@/lib/constants";
+import { CONDIMENTS, MEAL_TYPE_LABELS } from "@/lib/constants";
 import { USER_TIMEZONE, formatDayLabel, formatTime } from "@/lib/dates";
-import { MealType } from "@/schemas/mealFormSchema";
 import { MealListItem, MealListResponse } from "@/schemas/mealList";
 import { listMeals } from "@/services/mealService";
 import { RetryButton } from "./RetryButton";
 
 const RECENT_LIMIT = 4;
-
-const MEAL_TYPE_LABELS: Record<MealType, string> = {
-  BREAKFAST: "Breakfast",
-  LUNCH: "Lunch",
-  DINNER: "Dinner",
-  SNACK: "Snack",
-};
 
 function MealIcon({ meal }: { meal: MealListItem }) {
   if (meal.isSoup) {
