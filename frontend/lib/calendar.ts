@@ -1,60 +1,45 @@
-import { startOfDayIso, toLocalDate } from "@/lib/dates";
-
-/** A month as "YYYY-MM". */
-export type Month = string;
+import { addDays, startOfDayIso } from "@/lib/dates";
 
 export const MONTH_PATTERN = /^\d{4}-(0[1-9]|1[0-2])$/;
+export const DATE_PATTERN = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-export function currentMonth(timeZone: string, now = new Date()): Month {
-  return toLocalDate(now, timeZone).slice(0, 7);
-}
-
-export function addMonths(month: Month, months: number): Month {
+/** [from, to) covering a "YYYY-MM" month in `timeZone`. */
+export function monthRange(month: string, timeZone: string) {
   const [year, monthIndex] = month.split("-").map(Number);
-  return new Date(Date.UTC(year, monthIndex - 1 + months, 1)).toISOString().slice(0, 7);
-}
-
-/** [from, to) covering the whole month in `timeZone`. */
-export function monthRange(month: Month, timeZone: string) {
+  const next = new Date(Date.UTC(year, monthIndex, 1)).toISOString().slice(0, 7);
   return {
     from: startOfDayIso(`${month}-01`, timeZone),
-    to: startOfDayIso(`${addMonths(month, 1)}-01`, timeZone),
+    to: startOfDayIso(`${next}-01`, timeZone),
   };
 }
 
-/**
- * Dates of the month laid out in Sunday-first weeks. `null` pads the first and
- * last week so every row has seven cells.
- */
-export function monthCells(month: Month): (string | null)[] {
-  const [year, monthIndex] = month.split("-").map(Number);
-  const firstWeekday = new Date(Date.UTC(year, monthIndex - 1, 1)).getUTCDay();
-  const daysInMonth = new Date(Date.UTC(year, monthIndex, 0)).getUTCDate();
-
-  const cells: (string | null)[] = Array.from({ length: firstWeekday }, () => null);
-  for (let day = 1; day <= daysInMonth; day++) {
-    cells.push(`${month}-${String(day).padStart(2, "0")}`);
-  }
-  while (cells.length % 7 !== 0) cells.push(null);
-  return cells;
+/** [from, to) covering a single "YYYY-MM-DD" day in `timeZone`. */
+export function dayRange(date: string, timeZone: string) {
+  return {
+    from: startOfDayIso(date, timeZone),
+    to: startOfDayIso(addDays(date, 1), timeZone),
+  };
 }
 
-// Dates here are calendar dates, not instants, so they're formatted in UTC.
-const monthTitleFormat = new Intl.DateTimeFormat("en-PH", {
-  timeZone: "UTC",
-  month: "long",
-  year: "numeric",
-});
+/** A valid "YYYY-MM-DD" that isn't after `today`, or null. */
+export function resolveDay(param: unknown, today: string): string | null {
+  if (typeof param !== "string" || !DATE_PATTERN.test(param)) return null;
+  return param > today ? null : param;
+}
+
+/** A valid "YYYY-MM" that isn't after `thisMonth`, otherwise `thisMonth`. */
+export function resolveMonth(param: unknown, thisMonth: string): string {
+  if (typeof param !== "string" || !MONTH_PATTERN.test(param)) return thisMonth;
+  return param > thisMonth ? thisMonth : param;
+}
+
+// Calendar dates, not instants, so they're formatted in UTC.
 const longDateFormat = new Intl.DateTimeFormat("en-PH", {
   timeZone: "UTC",
   weekday: "long",
   month: "long",
   day: "numeric",
 });
-
-export function formatMonthTitle(month: Month): string {
-  return monthTitleFormat.format(new Date(`${month}-01T00:00:00Z`));
-}
 
 /** e.g. "Thursday, September 24" */
 export function formatLongDate(date: string): string {

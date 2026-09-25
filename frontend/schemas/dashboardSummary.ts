@@ -12,7 +12,7 @@ const NutrientLevelCountsSchema = z.object({
 export const DashboardSummarySchema = z.object({
   mealCount: count,
   daysLogged: count,
-  dailyCounts: z.array(z.object({ date: z.iso.date(), count })),
+  dailyCounts: z.array(z.object({ date: z.iso.date(), count, highNutrientMeals: count })),
   nutrientLevels: z.object({
     sodium: NutrientLevelCountsSchema,
     potassium: NutrientLevelCountsSchema,

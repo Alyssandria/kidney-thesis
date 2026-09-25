@@ -11,7 +11,7 @@ import { WhatToNotice } from "@/components/dashboard/WhatToNotice";
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
 export default async function DashboardPage({ searchParams }: PageProps<"/">) {
-  const { month } = await searchParams;
+  const { month, day } = await searchParams;
 
   return (
     <div className={`flex-1 bg-kc-canvas text-kc-ink ${dmSans.className}`}>
@@ -64,7 +64,7 @@ export default async function DashboardPage({ searchParams }: PageProps<"/">) {
           </section>
 
           <Suspense fallback={<MealCalendarSkeleton />}>
-            <MealCalendar monthParam={month} />
+            <MealCalendar monthParam={month} dayParam={day} />
           </Suspense>
         </div>
 
