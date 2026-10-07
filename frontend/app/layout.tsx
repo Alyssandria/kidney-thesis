@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 import { bricolage, manrope, plexMono } from "@/lib/fonts";
 import { QueryProvider } from "@/hooks/providers/QueryProvider";
 import { AppSidebar } from "@/components/layout/AppSidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { TopBar } from "@/components/layout/TopBar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
   title: {
@@ -29,10 +30,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <SidebarProvider defaultOpen={sidebarOpen}>
             <AppSidebar />
             <div className="flex min-w-0 flex-1 flex-col">
-              <header className="flex h-14 items-center gap-2 border-b border-sidebar-border bg-sidebar px-3 md:hidden">
-                <SidebarTrigger className="size-11" />
-                <span className="font-heading text-base font-bold">K-WAIS</span>
-              </header>
+              <TopBar />
               {children}
             </div>
           </SidebarProvider>
