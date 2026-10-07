@@ -26,7 +26,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={cn("h-full", "antialiased", "font-sans", inter.variable)}
     >
-      <body className="min-h-full bg-slate-50">
+      <body className="min-h-full">
         <QueryProvider>
           <SidebarProvider defaultOpen={sidebarOpen}>
             <AppSidebar />
