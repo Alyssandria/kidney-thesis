@@ -1,8 +1,9 @@
 import { db, queryClient } from "./client.js";
 import { DEV_USER } from "./dev-user.js";
-import { users } from "./schema/index.js";
+import { SAMPLE_FOODS } from "./sample-foods.js";
+import { foods, users } from "./schema/index.js";
 
-async function seed() {
+async function seedDevUser() {
   const inserted = await db
     .insert(users)
     .values(DEV_USER)
@@ -16,8 +17,21 @@ async function seed() {
   );
 }
 
+async function seedFoods() {
+  const inserted = await db
+    .insert(foods)
+    .values(SAMPLE_FOODS)
+    .onConflictDoNothing({ target: foods.name })
+    .returning({ id: foods.id });
+
+  console.log(
+    `Added ${inserted.length} sample foods (${SAMPLE_FOODS.length - inserted.length} already existed)`,
+  );
+}
+
 try {
-  await seed();
+  await seedDevUser();
+  await seedFoods();
 } finally {
   await queryClient.end();
 }
