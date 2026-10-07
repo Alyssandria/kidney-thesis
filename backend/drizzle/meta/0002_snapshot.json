@@ -1,0 +1,494 @@
+{
+  "id": "80f8f459-f1d2-411c-92d8-85618aef3f61",
+  "prevId": "3524a601-703d-45d9-a640-170f74bc5384",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ckd_stage": {
+          "name": "ckd_stage",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_dialysis": {
+          "name": "is_dialysis",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Asia/Manila'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "users_ckd_stage_range": {
+          "name": "users_ckd_stage_range",
+          "value": "\"users\".\"ckd_stage\" BETWEEN 1 AND 5"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.meal_logs": {
+      "name": "meal_logs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "meal_type": {
+          "name": "meal_type",
+          "type": "meal_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_soup": {
+          "name": "is_soup",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "consumed_soup": {
+          "name": "consumed_soup",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "condiments": {
+          "name": "condiments",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::text[]"
+        },
+        "ckd_stage": {
+          "name": "ckd_stage",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_dialysis": {
+          "name": "is_dialysis",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sodium_level": {
+          "name": "sodium_level",
+          "type": "nutrient_level",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "potassium_level": {
+          "name": "potassium_level",
+          "type": "nutrient_level",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phosphorus_level": {
+          "name": "phosphorus_level",
+          "type": "nutrient_level",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "protein_level": {
+          "name": "protein_level",
+          "type": "protein_level",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "analysis": {
+          "name": "analysis",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "model": {
+          "name": "model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prompt_version": {
+          "name": "prompt_version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "meal_logs_user_created_idx": {
+          "name": "meal_logs_user_created_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "meal_logs_user_id_users_id_fk": {
+          "name": "meal_logs_user_id_users_id_fk",
+          "tableFrom": "meal_logs",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "meal_logs_ckd_stage_range": {
+          "name": "meal_logs_ckd_stage_range",
+          "value": "\"meal_logs\".\"ckd_stage\" BETWEEN 1 AND 5"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.foods": {
+      "name": "foods",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "food_category",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "serving_size": {
+          "name": "serving_size",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "serving_unit": {
+          "name": "serving_unit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "energy_kcal": {
+          "name": "energy_kcal",
+          "type": "numeric(8, 1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sodium_mg": {
+          "name": "sodium_mg",
+          "type": "numeric(8, 1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "potassium_mg": {
+          "name": "potassium_mg",
+          "type": "numeric(8, 1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phosphorus_mg": {
+          "name": "phosphorus_mg",
+          "type": "numeric(8, 1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "protein_g": {
+          "name": "protein_g",
+          "type": "numeric(6, 1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fluid_ml": {
+          "name": "fluid_ml",
+          "type": "numeric(8, 1)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "foods_name_unique": {
+          "name": "foods_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "foods_serving_size_positive": {
+          "name": "foods_serving_size_positive",
+          "value": "\"foods\".\"serving_size\" > 0"
+        },
+        "foods_nutrients_non_negative": {
+          "name": "foods_nutrients_non_negative",
+          "value": "\"foods\".\"energy_kcal\" >= 0 AND \"foods\".\"sodium_mg\" >= 0 AND \"foods\".\"potassium_mg\" >= 0 AND \"foods\".\"phosphorus_mg\" >= 0 AND \"foods\".\"protein_g\" >= 0 AND \"foods\".\"fluid_ml\" >= 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.nutrient_guidelines": {
+      "name": "nutrient_guidelines",
+      "schema": "",
+      "columns": {
+        "nutrient": {
+          "name": "nutrient",
+          "type": "guideline_nutrient",
+          "typeSchema": "public",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "daily_value": {
+          "name": "daily_value",
+          "type": "numeric(8, 1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "effective_date": {
+          "name": "effective_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "nutrient_guidelines_daily_value_positive": {
+          "name": "nutrient_guidelines_daily_value_positive",
+          "value": "\"nutrient_guidelines\".\"daily_value\" > 0"
+        }
+      },
+      "isRLSEnabled": true
+    }
+  },
+  "enums": {
+    "public.food_category": {
+      "name": "food_category",
+      "schema": "public",
+      "values": [
+        "GRAINS",
+        "PROTEIN",
+        "VEGETABLES",
+        "FRUIT",
+        "SOUPS",
+        "PROCESSED",
+        "BEVERAGES",
+        "MIXED_DISHES"
+      ]
+    },
+    "public.guideline_nutrient": {
+      "name": "guideline_nutrient",
+      "schema": "public",
+      "values": [
+        "SODIUM",
+        "POTASSIUM",
+        "PHOSPHORUS",
+        "PROTEIN",
+        "ENERGY",
+        "FLUID"
+      ]
+    },
+    "public.meal_type": {
+      "name": "meal_type",
+      "schema": "public",
+      "values": [
+        "BREAKFAST",
+        "LUNCH",
+        "DINNER",
+        "SNACK"
+      ]
+    },
+    "public.nutrient_level": {
+      "name": "nutrient_level",
+      "schema": "public",
+      "values": [
+        "LOW",
+        "MODERATE",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "public.protein_level": {
+      "name": "protein_level",
+      "schema": "public",
+      "values": [
+        "OPTIMAL",
+        "TOO_LOW",
+        "TOO_HIGH"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

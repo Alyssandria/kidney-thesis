@@ -1,7 +1,8 @@
 import { db, queryClient } from "./client.js";
 import { DEV_USER } from "./dev-user.js";
 import { SAMPLE_FOODS } from "./sample-foods.js";
-import { foods, users } from "./schema/index.js";
+import { SAMPLE_GUIDELINES } from "./sample-guidelines.js";
+import { foods, nutrientGuidelines, users } from "./schema/index.js";
 
 async function seedDevUser() {
   const inserted = await db
@@ -29,9 +30,22 @@ async function seedFoods() {
   );
 }
 
+async function seedGuidelines() {
+  const inserted = await db
+    .insert(nutrientGuidelines)
+    .values(SAMPLE_GUIDELINES)
+    .onConflictDoNothing({ target: nutrientGuidelines.nutrient })
+    .returning({ nutrient: nutrientGuidelines.nutrient });
+
+  console.log(
+    `Added ${inserted.length} nutrient guidelines (${SAMPLE_GUIDELINES.length - inserted.length} already existed)`,
+  );
+}
+
 try {
   await seedDevUser();
   await seedFoods();
+  await seedGuidelines();
 } finally {
   await queryClient.end();
 }
