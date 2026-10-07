@@ -39,7 +39,7 @@ export async function MealCalendar({ monthParam, dayParam }: MealCalendarProps) 
   } catch {
     return (
       <CalendarShell>
-        <p className="text-sm font-semibold text-kc-ink">We couldn&apos;t load your calendar</p>
+        <p className="text-sm font-semibold text-foreground">We couldn&apos;t load your calendar</p>
         <div>
           <RetryButton />
         </div>
@@ -55,13 +55,13 @@ export async function MealCalendar({ monthParam, dayParam }: MealCalendarProps) 
         selectedDay={selectedDay}
         days={summary.dailyCounts}
       />
-      <div aria-live="polite" className="border-t border-kc-mist pt-3.5">
+      <div aria-live="polite" className="border-t border-border pt-3.5">
         {selectedDay ? (
           <Suspense key={selectedDay} fallback={<DayMealsPanelSkeleton />}>
             <DayMealsPanel day={selectedDay} today={today} />
           </Suspense>
         ) : (
-          <p className="text-sm text-kc-muted">Select a day to see the meals you saved.</p>
+          <p className="text-sm text-muted-foreground">Select a day to see the meals you saved.</p>
         )}
       </div>
     </CalendarShell>
@@ -70,11 +70,11 @@ export async function MealCalendar({ monthParam, dayParam }: MealCalendarProps) 
 
 export function MealCalendarSkeleton() {
   return (
-    <div className="flex flex-col gap-4 rounded-[26px] bg-white px-7 py-6" aria-hidden="true">
-      <div className="h-6 w-40 animate-pulse rounded bg-kc-line" />
+    <div className="flex flex-col gap-4 rounded-xl bg-card p-5 ring-1 ring-border" aria-hidden="true">
+      <div className="h-6 w-40 animate-pulse rounded bg-muted" />
       <div className="grid grid-cols-7 gap-1.5">
         {Array.from({ length: 35 }, (_, n) => (
-          <div key={n} className="aspect-square animate-pulse rounded-xl bg-kc-mist" />
+          <div key={n} className="aspect-square animate-pulse rounded-lg bg-muted" />
         ))}
       </div>
     </div>

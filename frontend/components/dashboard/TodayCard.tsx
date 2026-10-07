@@ -22,11 +22,11 @@ function CardShell({ children }: { children: ReactNode }) {
   return (
     <section
       aria-labelledby="today-heading"
-      className="flex flex-col gap-4 rounded-[28px] bg-kc-peach p-6 text-kc-ink sm:p-7"
+      className="flex flex-col gap-4 rounded-xl bg-card p-5 shadow-card ring-1 ring-border"
     >
       <h2
         id="today-heading"
-        className="text-[13px] font-bold uppercase tracking-[0.1em] text-kc-peach-ink"
+        className="font-sans text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground"
       >
         Today
       </h2>
@@ -49,8 +49,8 @@ function MealSlot({
 
   if (!latest) {
     return (
-      <li className="flex flex-col gap-1.5 rounded-2xl border-[1.5px] border-dashed border-kc-peach-line p-3.5 text-kc-peach-text">
-        <span className="text-[13px] font-bold text-kc-ink">{label}</span>
+      <li className="flex flex-col gap-1.5 rounded-lg border-[1.5px] border-dashed border-input p-3.5 text-muted-foreground">
+        <span className="text-[13px] font-bold text-foreground">{label}</span>
         <span className="text-sm">{emptyText}</span>
       </li>
     );
@@ -60,14 +60,14 @@ function MealSlot({
     <li>
       <Link
         href={`/meals/${latest.id}`}
-        className="flex h-full flex-col gap-1.5 rounded-2xl bg-white p-3.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kc-primary"
+        className="flex h-full flex-col gap-1.5 rounded-lg bg-secondary p-3.5 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <span className="flex items-center justify-between">
-          <span className="text-[13px] font-bold text-kc-ink-soft">{label}</span>
-          <Check size={18} strokeWidth={2.6} className="text-kc-primary" aria-label="Logged" />
+          <span className="text-[13px] font-bold">{label}</span>
+          <Check size={18} strokeWidth={2.6} className="text-primary" aria-label="Logged" />
         </span>
         <span className="line-clamp-2 text-sm font-semibold leading-snug">{latest.description}</span>
-        <span className="text-[12.5px] text-kc-subtle">
+        <span className="text-[12.5px] text-muted-foreground">
           {formatTime(latest.createdAt, USER_TIMEZONE)}
           {meals.length > 1 && ` · +${meals.length - 1} more`}
         </span>
@@ -86,7 +86,7 @@ export async function TodayCard() {
     return (
       <CardShell>
         <p className="text-sm font-semibold">We couldn&apos;t load today&apos;s meals</p>
-        <p className="text-sm text-kc-peach-text">Your saved meals are safe. Please try again.</p>
+        <p className="text-sm text-muted-foreground">Your saved meals are safe. Please try again.</p>
         <div>
           <RetryButton />
         </div>
@@ -99,7 +99,7 @@ export async function TodayCard() {
 
   return (
     <CardShell>
-      <p className="text-4xl font-extrabold leading-none tracking-tight">
+      <p className="font-heading text-4xl font-bold leading-none tracking-tight">
         {meals.length === 0
           ? "No meals logged yet"
           : `${meals.length} ${meals.length === 1 ? "meal" : "meals"} logged`}
@@ -116,13 +116,13 @@ export async function TodayCard() {
         ))}
       </ul>
 
-      <p className="mt-auto line-clamp-2 text-sm text-kc-peach-text">
+      <p className="mt-auto line-clamp-2 text-sm text-muted-foreground">
         {latest ? (
           <>
             Latest:{" "}
             <Link
               href={`/meals/${latest.id}`}
-              className="font-semibold text-kc-ink underline-offset-4 hover:underline"
+              className="font-semibold text-foreground underline-offset-4 hover:underline"
             >
               {latest.description}
             </Link>{" "}
@@ -139,10 +139,10 @@ export async function TodayCard() {
 export function TodayCardSkeleton() {
   return (
     <CardShell>
-      <div className="h-9 w-56 animate-pulse rounded bg-white/60" aria-hidden="true" />
+      <div className="h-9 w-56 animate-pulse rounded bg-muted" aria-hidden="true" />
       <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4" aria-hidden="true">
         {SLOTS.map((slot) => (
-          <div key={slot.type} className="h-[92px] animate-pulse rounded-2xl bg-white/60" />
+          <div key={slot.type} className="h-[92px] animate-pulse rounded-lg bg-muted" />
         ))}
       </div>
       <p className="sr-only" role="status">Loading today&apos;s meals…</p>

@@ -29,9 +29,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <SidebarProvider defaultOpen={sidebarOpen}>
             <AppSidebar />
             <div className="flex min-w-0 flex-1 flex-col">
-              <header className="flex h-14 items-center gap-2 border-b border-sidebar-border bg-white px-3 md:hidden">
+              <header className="flex h-14 items-center gap-2 border-b border-sidebar-border bg-sidebar px-3 md:hidden">
                 <SidebarTrigger className="size-11" />
-                <span className="text-base font-bold text-kc-ink">K-WAIS</span>
+                <span className="font-heading text-base font-bold">K-WAIS</span>
               </header>
               {children}
             </div>

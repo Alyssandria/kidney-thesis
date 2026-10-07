@@ -19,7 +19,7 @@ export default function PatternsPage() {
         <section aria-labelledby="last-7-days-heading" className="flex flex-col gap-3">
           <h2
             id="last-7-days-heading"
-            className="text-[13px] font-bold uppercase tracking-[0.1em] text-kc-subtle"
+            className="font-sans text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground"
           >
             Last 7 days
           </h2>
@@ -28,7 +28,7 @@ export default function PatternsPage() {
           </Suspense>
         </section>
         <Suspense
-          fallback={<div className="h-72 animate-pulse rounded-[26px] bg-white" aria-hidden="true" />}
+          fallback={<div className="h-72 animate-pulse rounded-xl bg-card ring-1 ring-border" aria-hidden="true" />}
         >
           <NutrientPatterns />
         </Suspense>

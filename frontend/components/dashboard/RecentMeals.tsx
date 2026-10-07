@@ -13,24 +13,24 @@ const RECENT_LIMIT = 4;
 
 function MealIcon({ meal }: { meal: MealListItem }) {
   if (meal.isSoup) {
-    return <IconTile className="bg-kc-green-bg text-kc-green-ink" icon={<Soup size={24} />} />;
+    return <IconTile className="bg-ok-soft text-ok" icon={<Soup size={24} />} />;
   }
   switch (meal.mealType) {
     case "BREAKFAST":
-      return <IconTile className="bg-kc-amber-bg text-kc-amber-ink" icon={<Sunrise size={24} />} />;
+      return <IconTile className="bg-warn-soft text-warn" icon={<Sunrise size={24} />} />;
     case "LUNCH":
-      return <IconTile className="bg-kc-blue-bg text-kc-blue-ink" icon={<Sun size={24} />} />;
+      return <IconTile className="bg-info-soft text-info" icon={<Sun size={24} />} />;
     case "DINNER":
-      return <IconTile className="bg-kc-lilac-bg text-kc-lilac-ink" icon={<Moon size={24} />} />;
+      return <IconTile className="bg-brand-soft text-primary" icon={<Moon size={24} />} />;
     default:
-      return <IconTile className="bg-kc-mist text-kc-ink-soft" icon={<Utensils size={24} />} />;
+      return <IconTile className="bg-muted text-muted-foreground" icon={<Utensils size={24} />} />;
   }
 }
 
 function IconTile({ className, icon }: { className: string; icon: ReactNode }) {
   return (
     <span
-      className={`flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-2xl ${className}`}
+      className={`flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-xl ${className}`}
       aria-hidden="true"
     >
       {icon}
@@ -59,12 +59,12 @@ function MealRow({ meal }: { meal: MealListItem }) {
     <li>
       <Link
         href={`/meals/${meal.id}`}
-        className="-mx-3.5 flex items-center gap-4 rounded-[18px] p-3.5 text-kc-ink hover:bg-kc-canvas focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kc-primary"
+        className="-mx-3.5 flex items-center gap-4 rounded-xl p-3.5 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <MealIcon meal={meal} />
         <span className="flex min-w-0 flex-grow flex-col gap-1.5">
           <span className="line-clamp-2 text-base font-bold leading-snug">{meal.description}</span>
-          <span className="text-[13px] font-medium text-kc-subtle">{mealDetails(meal)}</span>
+          <span className="text-[13px] font-medium text-muted-foreground">{mealDetails(meal)}</span>
           {notable.length > 0 ? (
             <span className="flex flex-wrap gap-1.5">
               {notable.map((item) => (
@@ -72,10 +72,10 @@ function MealRow({ meal }: { meal: MealListItem }) {
               ))}
             </span>
           ) : (
-            <span className="text-[13px] text-kc-subtle">No nutrients stood out</span>
+            <span className="text-[13px] text-muted-foreground">No nutrients stood out</span>
           )}
         </span>
-        <ChevronRight size={20} className="shrink-0 text-kc-faint" aria-hidden="true" />
+        <ChevronRight size={20} className="shrink-0 text-muted-foreground" aria-hidden="true" />
       </Link>
     </li>
   );
@@ -90,8 +90,8 @@ export async function RecentMeals() {
   } catch {
     return (
       <div className="flex flex-col items-start gap-3">
-        <p className="text-sm font-semibold text-kc-ink">We couldn&apos;t load your recent meals</p>
-        <p className="text-sm text-kc-muted">Your saved meals are safe. Please try again.</p>
+        <p className="text-sm font-semibold text-foreground">We couldn&apos;t load your recent meals</p>
+        <p className="text-sm text-muted-foreground">Your saved meals are safe. Please try again.</p>
         <RetryButton />
       </div>
     );
@@ -100,8 +100,8 @@ export async function RecentMeals() {
   if (recent.items.length === 0) {
     return (
       <div className="flex flex-col items-start gap-3">
-        <p className="text-sm font-semibold text-kc-ink">No saved meals yet</p>
-        <p className="text-sm text-kc-muted">
+        <p className="text-sm font-semibold text-foreground">No saved meals yet</p>
+        <p className="text-sm text-muted-foreground">
           Analyze a meal and save it to your log. Your latest meals will appear here.
         </p>
       </div>
@@ -122,10 +122,10 @@ export function RecentMealsSkeleton() {
     <div className="flex flex-col" aria-hidden="true">
       {Array.from({ length: RECENT_LIMIT }, (_, n) => (
         <div key={n} className="flex items-center gap-4 py-3.5">
-          <div className="h-[52px] w-[52px] shrink-0 animate-pulse rounded-2xl bg-kc-line" />
+          <div className="h-[52px] w-[52px] shrink-0 animate-pulse rounded-xl bg-muted" />
           <div className="flex flex-grow flex-col gap-2">
-            <div className="h-4 w-3/5 animate-pulse rounded bg-kc-line" />
-            <div className="h-3 w-2/5 animate-pulse rounded bg-kc-line" />
+            <div className="h-4 w-3/5 animate-pulse rounded bg-muted" />
+            <div className="h-3 w-2/5 animate-pulse rounded bg-muted" />
           </div>
         </div>
       ))}

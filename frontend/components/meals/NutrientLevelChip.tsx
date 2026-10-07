@@ -16,11 +16,11 @@ const NUTRIENT_LABELS = {
 } as const;
 
 const LEVEL_STYLES = {
-  MODERATE: { label: "Moderate", className: "bg-kc-mist text-kc-ink-soft" },
-  HIGH: { label: "High", className: "bg-kc-amber-bg text-kc-amber-ink" },
-  CRITICAL: { label: "Very high", className: "bg-kc-coral-bg text-kc-coral-ink" },
-  TOO_HIGH: { label: "Above range", className: "bg-kc-blue-bg text-kc-blue-ink" },
-  TOO_LOW: { label: "Below range", className: "bg-kc-blue-bg text-kc-blue-ink" },
+  MODERATE: { label: "Moderate", className: "bg-muted text-foreground" },
+  HIGH: { label: "High", className: "bg-warn-soft text-warn" },
+  CRITICAL: { label: "Very high", className: "bg-crit-soft text-destructive" },
+  TOO_HIGH: { label: "Above range", className: "bg-info-soft text-info" },
+  TOO_LOW: { label: "Below range", className: "bg-info-soft text-info" },
 } as const;
 
 // Most important first, so the chips read in order of attention.

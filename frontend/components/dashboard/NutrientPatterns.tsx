@@ -50,11 +50,11 @@ export async function NutrientPatterns() {
           {Array.from({ length: MIN_MEALS_FOR_PATTERNS }, (_, n) => (
             <span
               key={n}
-              className={`h-2 flex-grow rounded ${n < summary.mealCount ? "bg-kc-primary" : "bg-kc-line"}`}
+              className={`h-2 flex-grow rounded ${n < summary.mealCount ? "bg-primary" : "bg-track"}`}
             />
           ))}
         </div>
-        <p className="text-sm leading-relaxed text-kc-muted">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           You&apos;ve logged {summary.mealCount} {summary.mealCount === 1 ? "meal" : "meals"} in{" "}
           {monthName}. With only a few meals, a pattern could be misleading, so we wait until there
           are more.
@@ -72,18 +72,18 @@ export async function NutrientPatterns() {
           <NutrientLevelRing key={ring.nutrient} ring={ring} />
         ))}
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-kc-mist pt-3.5">
-        <ul aria-label="Ring key" className="flex flex-wrap gap-3.5 text-[13px] text-kc-ink-soft">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3.5">
+        <ul aria-label="Ring key" className="flex flex-wrap gap-3.5 text-[13px] text-foreground">
           <li className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-[3px] bg-kc-level-high" aria-hidden="true" />
+            <span className="h-3 w-3 rounded-[3px] bg-warn" aria-hidden="true" />
             High or very high
           </li>
           <li className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-[3px] bg-kc-level-moderate" aria-hidden="true" />
+            <span className="h-3 w-3 rounded-[3px] bg-warn/40" aria-hidden="true" />
             Moderate
           </li>
         </ul>
-        <span className="text-[13px] text-kc-muted">
+        <span className="text-[13px] text-muted-foreground">
           Protein above range: {TOO_HIGH}
           {TOO_LOW > 0 && ` · below range: ${TOO_LOW}`}
         </span>

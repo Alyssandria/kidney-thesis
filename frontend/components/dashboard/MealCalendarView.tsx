@@ -33,7 +33,7 @@ function fromKey(key: string): Date {
   return new Date(year, month - 1, day ?? 1);
 }
 
-function HighNutrientMarker({ className = "text-kc-amber-ink" }: { className?: string }) {
+function HighNutrientMarker({ className = "text-warn" }: { className?: string }) {
   return (
     <svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true" className={className}>
       <circle cx="6" cy="6" r="4.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
@@ -47,15 +47,15 @@ const DaysContext = createContext<ReadonlyMap<string, CalendarDay>>(new Map());
 // Full class strings so Tailwind can see them. The data-[selected-single] variants
 // keep a day's own fill when selected; selection is shown with a ring instead.
 const DAY_TONES = {
-  none: "data-[selected-single=true]:bg-transparent data-[selected-single=true]:text-kc-ink",
-  one: "bg-kc-logged text-kc-ink data-[selected-single=true]:bg-kc-logged data-[selected-single=true]:text-kc-ink",
-  two: "bg-kc-logged-mid text-kc-ink data-[selected-single=true]:bg-kc-logged-mid data-[selected-single=true]:text-kc-ink",
-  many: "bg-kc-logged-strong text-kc-ink data-[selected-single=true]:bg-kc-logged-strong data-[selected-single=true]:text-kc-ink",
-  today: "bg-kc-primary text-white hover:bg-kc-primary hover:text-white data-[selected-single=true]:bg-kc-primary data-[selected-single=true]:text-white",
+  none: "data-[selected-single=true]:bg-transparent data-[selected-single=true]:text-foreground",
+  one: "bg-primary/15 text-foreground data-[selected-single=true]:bg-primary/15 data-[selected-single=true]:text-foreground",
+  two: "bg-primary/30 text-foreground data-[selected-single=true]:bg-primary/30 data-[selected-single=true]:text-foreground",
+  many: "bg-primary/45 text-foreground data-[selected-single=true]:bg-primary/45 data-[selected-single=true]:text-foreground",
+  today: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground",
 } as const;
 
 const SELECTED_RING =
-  "data-[selected-single=true]:ring-2 data-[selected-single=true]:ring-kc-ink data-[selected-single=true]:ring-offset-2";
+  "data-[selected-single=true]:ring-2 data-[selected-single=true]:ring-foreground data-[selected-single=true]:ring-offset-2";
 
 function dayTone(count: number, isToday: boolean): keyof typeof DAY_TONES {
   if (isToday) return "today";
@@ -78,13 +78,13 @@ function MealDayButton({ children, ...props }: DayButtonProps) {
           <span className="flex items-center gap-0.5">
             <span
               className={`rounded-full px-1.5 py-px text-[10.5px] font-extrabold leading-none ${
-                isToday ? "bg-white text-kc-primary" : "bg-kc-primary text-white"
+                isToday ? "bg-card text-primary" : "bg-primary text-primary-foreground"
               }`}
             >
               {info.count}
             </span>
             {info.highNutrientMeals > 0 && (
-              <HighNutrientMarker className={isToday ? "text-white" : undefined} />
+              <HighNutrientMarker className={isToday ? "text-primary-foreground" : undefined} />
             )}
           </span>
         )}
@@ -147,17 +147,17 @@ export function MealCalendarView({ month, today, selectedDay, days }: MealCalend
           }}
           components={{ DayButton: MealDayButton }}
         />
-        <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-[12.5px] text-kc-subtle">
+        <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-[12.5px] text-muted-foreground">
           <li className="flex items-center gap-1.5">
             <span className="flex gap-0.5" aria-hidden="true">
-              <span className="h-3 w-3 rounded-[3px] bg-kc-logged" />
-              <span className="h-3 w-3 rounded-[3px] bg-kc-logged-mid" />
-              <span className="h-3 w-3 rounded-[3px] bg-kc-logged-strong" />
+              <span className="h-3 w-3 rounded-[3px] bg-primary/15" />
+              <span className="h-3 w-3 rounded-[3px] bg-primary/30" />
+              <span className="h-3 w-3 rounded-[3px] bg-primary/45" />
             </span>
             1, 2, 3+ meals logged
           </li>
           <li className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-[3px] bg-kc-primary" aria-hidden="true" />
+            <span className="h-3 w-3 rounded-[3px] bg-primary" aria-hidden="true" />
             Today
           </li>
           <li className="flex items-center gap-1.5">

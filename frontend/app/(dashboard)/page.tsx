@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { DashboardCard } from "@/components/dashboard/DashboardCard";
+import { buttonVariants } from "@/components/ui/button";
 import { RecentMeals, RecentMealsSkeleton } from "@/components/dashboard/RecentMeals";
 import { TodayCard, TodayCardSkeleton } from "@/components/dashboard/TodayCard";
 import { WhatToNotice } from "@/components/dashboard/WhatToNotice";
@@ -16,7 +17,7 @@ export default function TodayPage() {
         action={
           <Link
             href="/meals/new"
-            className="inline-flex h-12 items-center justify-center gap-2 self-start rounded-[14px] bg-kc-primary-soft px-5 text-[15px] font-bold text-kc-ink hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kc-primary focus-visible:ring-offset-2 sm:self-auto"
+            className={buttonVariants({ size: "lg", className: "h-11 self-start rounded-lg px-4 font-semibold sm:self-auto" })}
           >
             <Plus size={18} aria-hidden="true" />
             Analyze a meal

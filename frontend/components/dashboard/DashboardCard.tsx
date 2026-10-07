@@ -17,19 +17,19 @@ export function DashboardCard({ id, title, description, contentClassName, childr
     <Card
       role="region"
       aria-labelledby={headingId}
-      className="gap-4 rounded-[26px] bg-white py-6 text-kc-ink shadow-[0_1px_2px_rgba(15,23,42,0.04)] ring-0"
+      className="gap-4 rounded-xl py-5 shadow-card ring-border"
     >
-      <CardHeader className="px-5 sm:px-7">
+      <CardHeader className="px-5">
         <CardTitle>
-          <h2 id={headingId} className="text-[19px] font-bold">
+          <h2 id={headingId} className="font-sans text-base font-bold">
             {title}
           </h2>
         </CardTitle>
         {description && (
-          <CardDescription className="text-sm text-kc-subtle">{description}</CardDescription>
+          <CardDescription className="text-[13px]">{description}</CardDescription>
         )}
       </CardHeader>
-      <CardContent className={cn("flex flex-col gap-4 px-5 sm:px-7", contentClassName)}>
+      <CardContent className={cn("flex flex-col gap-4 px-5", contentClassName)}>
         {children}
       </CardContent>
     </Card>

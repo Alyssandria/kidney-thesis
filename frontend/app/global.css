@@ -176,39 +176,3 @@
     @apply font-heading tracking-tight;
     }
 }
-/* Dashboard palette (from the dashboard design). */
-@theme {
-    --color-kc-canvas: #FAF7F2;
-    --color-kc-ink: #231F36;
-    --color-kc-ink-soft: #3F3B52;
-    --color-kc-muted: #57536B;
-    --color-kc-subtle: #6B6781;
-    --color-kc-line: #ECE8F0;
-    --color-kc-primary: #5B52C9;
-    --color-kc-primary-soft: #CFCBFF;
-    --color-kc-green-bg: #DFF2E6;
-    --color-kc-green-ink: #2E6B4A;
-    --color-kc-blue-bg: #DDEBFB;
-    --color-kc-blue-ink: #2F5F99;
-    --color-kc-lilac-bg: #ECE6FF;
-    --color-kc-lilac-ink: #6146C0;
-    --color-kc-amber-bg: #FFEFD2;
-    --color-kc-amber-ink: #8A4B08;
-    --color-kc-peach: #FFE4D6;
-    --color-kc-peach-ink: #8C4A2C;
-    --color-kc-peach-text: #7A4A35;
-    --color-kc-peach-line: #EDB397;
-    --color-kc-mist: #F3F0F7;
-    --color-kc-faint: #A29EB5;
-    --color-kc-coral-bg: #FFD9C4;
-    --color-kc-coral-ink: #7C2D12;
-    --color-kc-green-soft: #E3F4EA;
-    --color-kc-primary-strong: #3E3790;
-    --color-kc-logged: #EFECFF;
-    --color-kc-logged-line: #D6D1FF;
-    --color-kc-logged-mid: #D6D1FF;
-    --color-kc-logged-strong: #B9B4F7;
-    --color-kc-level-high: #E8895A;
-    --color-kc-level-moderate: #FFC878;
-    --color-kc-empty-line: #F1EEF4;
-}

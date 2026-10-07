@@ -10,9 +10,9 @@ import {
 import { describeRing, type NutrientRing } from "@/lib/nutrientPatterns";
 
 const chartConfig = {
-  high: { label: "High or very high", color: "var(--color-kc-level-high)" },
-  moderate: { label: "Moderate", color: "var(--color-kc-level-moderate)" },
-  rest: { label: "Low", color: "var(--color-kc-mist)" },
+  high: { label: "High or very high", color: "var(--warn)" },
+  moderate: { label: "Moderate", color: "color-mix(in srgb, var(--warn) 40%, var(--card))" },
+  rest: { label: "Low", color: "var(--track)" },
 } satisfies ChartConfig;
 
 export function NutrientLevelRing({ ring }: { ring: NutrientRing }) {
@@ -51,14 +51,14 @@ export function NutrientLevelRing({ ring }: { ring: NutrientRing }) {
                     <tspan
                       x={viewBox.cx}
                       y={(viewBox.cy ?? 0) - 2}
-                      className="fill-kc-ink text-[22px] font-extrabold"
+                      className="fill-foreground font-heading text-[22px] font-bold"
                     >
                       {ring.highOrAbove + ring.moderate}
                     </tspan>
                     <tspan
                       x={viewBox.cx}
                       y={(viewBox.cy ?? 0) + 15}
-                      className="fill-kc-subtle text-[11px] font-semibold"
+                      className="fill-muted-foreground text-[11px] font-semibold"
                     >
                       of {ring.total}
                     </tspan>
@@ -71,7 +71,7 @@ export function NutrientLevelRing({ ring }: { ring: NutrientRing }) {
       </ChartContainer>
       <figcaption className="flex flex-col items-center gap-0.5 text-center">
         <span className="text-[15px] font-bold">{ring.label}</span>
-        <span className="text-[12.5px] text-kc-muted">
+        <span className="text-[12.5px] text-muted-foreground">
           {ring.highOrAbove} high+ · {ring.moderate} moderate
         </span>
       </figcaption>
