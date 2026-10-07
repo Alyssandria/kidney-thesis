@@ -45,7 +45,7 @@ export function AppSidebar() {
             <Leaf size={22} strokeWidth={2.2} />
           </span>
           <span className="flex flex-col">
-            <span className="text-[19px] font-extrabold leading-tight tracking-tight">KidneyCare</span>
+            <span className="text-[19px] font-extrabold leading-tight tracking-tight">K-WAIS</span>
             <span className="text-xs font-medium text-kc-subtle">Meal companion</span>
           </span>
         </Link>
@@ -86,7 +86,7 @@ export function AppSidebar() {
 
       <SidebarFooter className="p-4">
         <p className="px-1.5 text-[12.5px] leading-relaxed text-kc-subtle">
-          KidneyCare explains meals. It doesn&apos;t diagnose or replace your doctor or renal
+          K-WAIS explains meals. It doesn&apos;t diagnose or replace your doctor or renal
           dietitian.
         </p>
       </SidebarFooter>

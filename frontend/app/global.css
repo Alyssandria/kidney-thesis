@@ -130,7 +130,7 @@
     @apply font-sans;
     }
 }
-/* KidneyCare dashboard palette (from the dashboard design). */
+/* Dashboard palette (from the dashboard design). */
 @theme {
     --color-kc-canvas: #FAF7F2;
     --color-kc-ink: #231F36;

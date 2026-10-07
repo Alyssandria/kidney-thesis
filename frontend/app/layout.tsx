@@ -11,8 +11,8 @@ const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: {
-    default: "KidneyCare",
-    template: "%s · KidneyCare",
+    default: "K-WAIS",
+    template: "%s · K-WAIS",
   },
   description: "Analyze your meals and understand how they may affect sodium, potassium and phosphorus.",
 };
@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             <div className="flex min-w-0 flex-1 flex-col">
               <header className="flex h-14 items-center gap-2 border-b border-sidebar-border bg-white px-3 md:hidden">
                 <SidebarTrigger className="size-11" />
-                <span className="text-base font-bold text-kc-ink">KidneyCare</span>
+                <span className="text-base font-bold text-kc-ink">K-WAIS</span>
               </header>
               {children}
             </div>

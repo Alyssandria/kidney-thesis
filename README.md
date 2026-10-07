@@ -1,4 +1,4 @@
-# 🚀 KidneyCare
+# 🚀 K-WAIS
 
 A modern Kidney Centryic full-stack web application built with **React, Express, PostgreSQL, and OpenAI**.
 
@@ -6,7 +6,7 @@ A modern Kidney Centryic full-stack web application built with **React, Express,
 
 ## 📖 About
 
-**KidneyCare** is a full-stack web application currently in its initial development stage. This repository contains the project's boilerplate and foundational setup, which will be expanded as features are implemented.
+**K-WAIS** (Kidney-Wise AI-Assisted System) is a full-stack web application currently in its initial development stage. This repository contains the project's boilerplate and foundational setup, which will be expanded as features are implemented.
 
 The application is designed with a separate frontend and backend architecture, with PostgreSQL handling persistent data and AI-powered functionality provided by ChatGPT.
 
