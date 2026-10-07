@@ -16,7 +16,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { dmSans } from "@/lib/fonts";
 
 const NAV_ITEMS = [
   { href: "/", label: "Today", icon: House },
@@ -31,7 +30,7 @@ export function AppSidebar() {
   const closeOnMobile = () => setOpenMobile(false);
 
   return (
-    <Sidebar className={dmSans.className}>
+    <Sidebar>
       <SidebarHeader className="px-4 pt-6 pb-2">
         <Link
           href="/"

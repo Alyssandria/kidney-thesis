@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import { Inter } from "next/font/google";
 import "./global.css"
 import { cn } from "@/lib/utils";
+import { bricolage, manrope, plexMono } from "@/lib/fonts";
 import { QueryProvider } from "@/hooks/providers/QueryProvider";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +22,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "font-sans", inter.variable)}
+      className={cn("h-full antialiased", manrope.variable, bricolage.variable, plexMono.variable)}
     >
       <body className="min-h-full">
         <QueryProvider>
