@@ -1,4 +1,4 @@
-import { and, asc, eq, ilike, type SQL } from "drizzle-orm";
+import { and, asc, eq, ilike, inArray, type SQL } from "drizzle-orm";
 import { db } from "../db/client.js";
 import { foods, type Food } from "../db/schema/index.js";
 import { containsPattern } from "../lib/like-pattern.js";
@@ -23,4 +23,12 @@ export async function findActiveFoods({
     .where(and(...conditions))
     .orderBy(asc(foods.name))
     .limit(limit);
+}
+
+export async function findActiveFoodsByIds(ids: readonly string[]): Promise<Food[]> {
+  if (ids.length === 0) return [];
+  return db
+    .select()
+    .from(foods)
+    .where(and(eq(foods.isActive, true), inArray(foods.id, [...ids])));
 }

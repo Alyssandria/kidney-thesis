@@ -1,5 +1,6 @@
 import { Router } from "express";
 import dashboardRoutes from "./dashboard.routes.js";
+import foodLogRoutes from "./food-log.routes.js";
 import foodRoutes from "./foods.routes.js";
 import guidelineRoutes from "./guidelines.routes.js";
 import healthRoutes from "./health.routes.js";
@@ -22,6 +23,9 @@ router.use("/dashboard", dashboardRoutes);
 
 /** FOOD DATABASE ROUTES */
 router.use("/foods", foodRoutes);
+
+/** FOOD LOG ROUTES */
+router.use("/food-log", foodLogRoutes);
 
 /** NUTRIENT GUIDELINE ROUTES */
 router.use("/guidelines", guidelineRoutes);

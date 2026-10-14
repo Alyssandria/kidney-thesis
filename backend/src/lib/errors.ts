@@ -32,6 +32,10 @@ const APP_ERRORS = {
     status: 503,
     message: "Your meal log can't be reached right now. Please try again shortly.",
   },
+  FOOD_UNAVAILABLE: {
+    status: 422,
+    message: "Some of these foods are no longer available. Refresh the food list and try again.",
+  },
   MEAL_NOT_FOUND: {
     status: 404,
     message: "This meal couldn't be found in your log.",
