@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   analyzeDay,
+  analyzeTotals,
   contributors,
   dayAlerts,
   limitStatus,
@@ -84,6 +85,13 @@ describe("analyzeDay", () => {
   it("marks a nutrient approaching from 80% of its reference", () => {
     const analysis = analyzeDay([noodles(1)], REFERENCES);
     expect(find(analysis, "SODIUM")).toMatchObject({ percent: 80, status: "APPROACHING" });
+  });
+});
+
+describe("analyzeTotals", () => {
+  it("matches analyzeDay for the same entries", () => {
+    const entries = [noodles(), adobo(1.5), rice()];
+    expect(analyzeTotals(sumNutrients(entries), REFERENCES)).toEqual(analyzeDay(entries, REFERENCES));
   });
 });
 

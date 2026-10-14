@@ -36,6 +36,18 @@ const APP_ERRORS = {
     status: 422,
     message: "Some of these foods are no longer available. Refresh the food list and try again.",
   },
+  GUIDELINES_INCOMPLETE: {
+    status: 500,
+    message: "Nutrition reference values aren't set up yet. Please contact the administrator.",
+  },
+  MEAL_ITEM_NOT_FOUND: {
+    status: 404,
+    message: "This food couldn't be found in your log.",
+  },
+  MEAL_LOCKED: {
+    status: 409,
+    message: "Only today's meals can be changed.",
+  },
   MEAL_NOT_FOUND: {
     status: 404,
     message: "This meal couldn't be found in your log.",

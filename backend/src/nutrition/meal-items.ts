@@ -1,4 +1,5 @@
 import type { Food, NewMealItem } from "../db/schema/index.js";
+import type { FoodEntry } from "./daily-analysis.js";
 
 export type RequestedItem = { foodId: string; servings: number };
 
@@ -40,5 +41,32 @@ export function buildDatabaseItems(
         },
       ];
     }),
+  };
+}
+
+/** The per-serving nutrient columns stored on a meal item. */
+export type ItemNutrientColumns = {
+  foodName: string;
+  servings: number;
+  energyKcal: number;
+  sodiumMg: number;
+  potassiumMg: number;
+  phosphorusMg: number;
+  proteinG: number;
+  fluidMl: number;
+};
+
+export function toFoodEntry(item: ItemNutrientColumns): FoodEntry {
+  return {
+    foodName: item.foodName,
+    servings: item.servings,
+    perServing: {
+      SODIUM: item.sodiumMg,
+      POTASSIUM: item.potassiumMg,
+      PHOSPHORUS: item.phosphorusMg,
+      PROTEIN: item.proteinG,
+      ENERGY: item.energyKcal,
+      FLUID: item.fluidMl,
+    },
   };
 }

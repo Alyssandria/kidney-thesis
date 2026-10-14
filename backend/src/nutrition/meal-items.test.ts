@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Food } from "../db/schema/index.js";
-import { buildDatabaseItems } from "./meal-items.js";
+import { buildDatabaseItems, toFoodEntry } from "./meal-items.js";
 
 const RICE_ID = "11111111-1111-4111-8111-111111111111";
 const EGG_ID = "22222222-2222-4222-8222-222222222222";
@@ -63,5 +63,26 @@ describe("buildDatabaseItems", () => {
       foods,
     );
     expect(result).toEqual({ ok: false, missingFoodIds: [MISSING_ID] });
+  });
+});
+
+describe("toFoodEntry", () => {
+  it("maps stored columns to the engine's nutrient keys", () => {
+    expect(
+      toFoodEntry({
+        foodName: "Milk, whole",
+        servings: 2,
+        energyKcal: 150,
+        sodiumMg: 105,
+        potassiumMg: 320,
+        phosphorusMg: 250,
+        proteinG: 8,
+        fluidMl: 240,
+      }),
+    ).toEqual({
+      foodName: "Milk, whole",
+      servings: 2,
+      perServing: { SODIUM: 105, POTASSIUM: 320, PHOSPHORUS: 250, PROTEIN: 8, ENERGY: 150, FLUID: 240 },
+    });
   });
 });

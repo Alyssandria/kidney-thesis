@@ -75,7 +75,11 @@ export function analyzeDay(
   entries: readonly FoodEntry[],
   references: NutrientAmounts,
 ): NutrientAnalysis[] {
-  const totals = sumNutrients(entries);
+  return analyzeTotals(sumNutrients(entries), references);
+}
+
+/** Like analyzeDay, for totals that were already added up. */
+export function analyzeTotals(totals: NutrientAmounts, references: NutrientAmounts): NutrientAnalysis[] {
   return GUIDELINE_NUTRIENTS.map((nutrient) => {
     const total = totals[nutrient];
     const reference = references[nutrient];
